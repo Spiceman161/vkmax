@@ -13,8 +13,8 @@ from functools import wraps
 
 WS_HOST = "wss://ws-api.oneme.ru/websocket"
 RPC_VERSION = 11
-APP_VERSION = "25.12.13"
-USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+APP_VERSION = "25.12.14"
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 
 _logger = logging.getLogger(__name__)
 
@@ -173,14 +173,14 @@ class MaxClient:
             opcode=6,
             payload={
                 "userAgent": {
-                    "deviceType": "DESKTOP", 
+                    "deviceType": "WEB",
                     "locale": "ru",
                     "deviceLocale": "ru",
-                    "osVersion": "Linux",
+                    "osVersion": "Windows",
                     "deviceName": "Chrome",
                     "headerUserAgent": USER_AGENT,
                     "appVersion": APP_VERSION,
-                    "screen": "1080x1920 1.0x",
+                    "screen": "1024x832 2.0x",
                     "timezone": "Europe/Moscow",
                     "clientSessionId": 14,
                     "buildNumber": 0x97CB
@@ -248,14 +248,14 @@ class MaxClient:
                 "draftsSync": 0,
                 "chatsCount": 40,
                 "userAgent": {
-                    "deviceType": "DESKTOP", 
+                    "deviceType": "WEB",
                     "locale": "ru",
                     "deviceLocale": "ru",
-                    "osVersion": "Linux",
+                    "osVersion": "Windows",
                     "deviceName": "Chrome",
                     "headerUserAgent": USER_AGENT,
                     "appVersion": APP_VERSION,
-                    "screen": "1080x1920 1.0x",
+                    "screen": "1024x832 2.0x",
                     "timezone": "Europe/Moscow",
                     "clientSessionId": 14,
                     "buildNumber": 0x97CB
