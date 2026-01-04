@@ -129,6 +129,11 @@ class MaxClient:
 
         except asyncio.CancelledError:
             _logger.info(f'receiver cancelled')
+            # Cancel all pending futures to avoid deadlocks/timeouts on disconnect
+            for seq, future in self._pending.items():
+                if not future.done():
+                    future.cancel()
+            self._pending.clear()
             return
 
     # --- Keepalive system
