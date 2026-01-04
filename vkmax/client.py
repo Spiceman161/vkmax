@@ -35,7 +35,7 @@ class MaxClient:
         self._http_pool: Optional[aiohttp.ClientSession] = None
         self._is_logged_in: bool = False
         self._device_id: Optional[str] = None
-        self._seq = itertools.count(1)
+        self._seq = itertools.count(0)
         self._keepalive_task: Optional[asyncio.Task] = None
         self._recv_task: Optional[asyncio.Task] = None
         self._incoming_event_callback = None
@@ -69,7 +69,7 @@ class MaxClient:
             await self._http_pool.close()
 
     @ensure_connected
-    async def invoke_method(self, opcode: int, payload: dict[str, Any]):
+    async def invoke_method(self, opcode: int, payload: Optional[dict[str, Any]] = None):
         seq = next(self._seq)
 
         request = {
@@ -77,8 +77,11 @@ class MaxClient:
             "cmd": 0,
             "seq": seq,
             "opcode": opcode,
-            "payload": payload
         }
+
+        if payload is not None:
+            request["payload"] = payload
+
         _logger.info(f'-> REQUEST: {request}')
 
         future = asyncio.get_event_loop().create_future()
