@@ -107,8 +107,13 @@ class MaxClient:
                 packet = json.loads(packet)
 
                 seq = packet["seq"]
-                future = self._pending.pop(seq, None)
-                if future:
+                cmd = packet.get("cmd")
+                
+                # Only resolve pending requests if packet is a Response (1) or Error (3)
+                # cmd=0 is a Push/Request, which shouldn't resolve our pending request
+                # even if sequence improperly matches.
+                if seq in self._pending and cmd in (1, 3):
+                    future = self._pending.pop(seq)
                     future.set_result(packet)
                     continue
 
